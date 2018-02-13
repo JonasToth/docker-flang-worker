@@ -2,8 +2,8 @@ FROM buildbot/buildbot-worker:master
 
 USER root
 
-RUN apt update
-RUN apt install -y build-essential cmake git
+RUN apt-get update
+RUN apt-get install -y build-essential cmake git
 
 # ----------------------- Compilation of dependencies -------------------------
 
