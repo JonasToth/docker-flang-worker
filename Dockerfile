@@ -9,7 +9,7 @@ RUN apt-get install -y build-essential cmake git
 
 ### LLVM
 USER buildbot
-WORKDIR /build-llvm
+WORKDIR ~/build-llvm
 
 RUN git clone https://github.com/llvm-mirror/llvm.git
 RUN cd llvm
@@ -23,11 +23,11 @@ RUN make -j$(nproc)
 
 USER root
 RUN make install
-RUN rm -rf /build-llvm
+RUN rm -rf ~/build-llvm
 
 ### flang driver
 USER buildbot
-WORKDIR /build-flang
+WORKDIR ~/build-flang
 
 RUN git clone https://github.com/flang-compiler/clang.git
 RUN cd clang
@@ -39,12 +39,12 @@ RUN make -j$(nproc)
 
 USER root
 RUN make install
-RUN rm -rf /build-flang
+RUN rm -rf ~/build-flang
 
 
 ### OpenMP libraries
 USER buildbot
-WORKDIR /build-openmp
+WORKDIR ~/build-openmp
 
 RUN git clone https://github.com/llvm-mirror/openmp.git
 RUN cd cd openmp/runtime
@@ -56,11 +56,11 @@ RUN make -j$(nproc)
 
 USER root
 RUN make install
-RUN rm -rf /build-openmp
+RUN rm -rf ~/build-openmp
 
 ### flang components
 USER buildbot
-WORKDIR /build-flang
+WORKDIR ~/build-flang
 
 RUN git clone https://github.com/flang-compiler/flang.git
 RUN cd flang
@@ -71,5 +71,11 @@ RUN cmake -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_Fortran_
 RUN make -j$(nproc)
 
 USER root
-RUN sudo make install
-RUN rm -rf /build-flang
+RUN make install
+RUN rm -rf ~/build-flang
+
+
+# ------------------------- Clean up ------------------------------
+
+### Remove initial build packages
+RUN apt-get autoremove build-essential cmake
