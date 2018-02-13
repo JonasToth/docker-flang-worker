@@ -11,7 +11,7 @@ RUN apt-get install -y build-essential cmake git
 # USER buildbot
 WORKDIR ~/build-llvm
 
-RUN git clone https://github.com/llvm-mirror/llvm.git
+RUN git clone -j$(nproc) https://github.com/llvm-mirror/llvm.git
 RUN cd llvm
 
 # Modify this line to get another LLVM release
@@ -29,7 +29,7 @@ RUN rm -rf ~/build-llvm
 # USER buildbot
 WORKDIR ~/build-flang
 
-RUN git clone https://github.com/flang-compiler/clang.git
+RUN git clone -j$(nproc) https://github.com/flang-compiler/clang.git
 RUN cd clang
 RUN git checkout flang_release_50
 
@@ -46,7 +46,7 @@ RUN rm -rf ~/build-flang
 # USER buildbot
 WORKDIR ~/build-openmp
 
-RUN git clone https://github.com/llvm-mirror/openmp.git
+RUN git clone -j$(nproc) https://github.com/llvm-mirror/openmp.git
 RUN cd cd openmp/runtime
 RUN git checkout release_50
 
@@ -62,7 +62,7 @@ RUN rm -rf ~/build-openmp
 # USER buildbot
 WORKDIR ~/build-flang
 
-RUN git clone https://github.com/flang-compiler/flang.git
+RUN git clone -j$(nproc) https://github.com/flang-compiler/flang.git
 RUN cd flang
 
 RUN mkdir build && cd build
