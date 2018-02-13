@@ -8,7 +8,7 @@ RUN apt-get install -y build-essential cmake git
 # ----------------------- Compilation of dependencies -------------------------
 
 ### LLVM
-USER buildbot
+# USER buildbot
 WORKDIR ~/build-llvm
 
 RUN git clone https://github.com/llvm-mirror/llvm.git
@@ -21,12 +21,12 @@ RUN mkdir build && cd build
 RUN cmake .. -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX=/usr/local/
 RUN make -j$(nproc)
 
-USER root
+# USER root
 RUN make install
 RUN rm -rf ~/build-llvm
 
 ### flang driver
-USER buildbot
+# USER buildbot
 WORKDIR ~/build-flang
 
 RUN git clone https://github.com/flang-compiler/clang.git
@@ -37,13 +37,13 @@ RUN mkdir build && cd build
 RUN cmake .. -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX=/usr/local/
 RUN make -j$(nproc)
 
-USER root
+# USER root
 RUN make install
 RUN rm -rf ~/build-flang
 
 
 ### OpenMP libraries
-USER buildbot
+# USER buildbot
 WORKDIR ~/build-openmp
 
 RUN git clone https://github.com/llvm-mirror/openmp.git
@@ -54,12 +54,12 @@ RUN mkdir build && cd build
 RUN cmake .. -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX=/usr/local/
 RUN make -j$(nproc)
 
-USER root
+# USER root
 RUN make install
 RUN rm -rf ~/build-openmp
 
 ### flang components
-USER buildbot
+# USER buildbot
 WORKDIR ~/build-flang
 
 RUN git clone https://github.com/flang-compiler/flang.git
@@ -70,7 +70,7 @@ RUN mkdir build && cd build
 RUN cmake -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_Fortran_COMPILER=flang ..
 RUN make -j$(nproc)
 
-USER root
+# USER root
 RUN make install
 RUN rm -rf ~/build-flang
 
