@@ -74,4 +74,4 @@ RUN rm -rf /build-flang
 # ------------------------- Clean up ------------------------------
 
 ### Remove initial build packages
-RUN apt-get autoremove build-essential cmake
+RUN apt-get autoremove -y build-essential cmake
