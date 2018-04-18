@@ -63,7 +63,7 @@ WORKDIR /build-flang/flang
 
 WORKDIR /build-flang/flang/build
 RUN cmake .. -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX=/usr/local/ \
-    -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang
+    -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_Fortran_COMPILER=flang
 RUN make -j$(nproc)
 RUN make install
 
